@@ -8,13 +8,6 @@ nav{
   margin-bottom: 10px;
 }
 
-/* .menubar ul{
-  border: 2px solid black;
-  width: 500px;
-  display: flex;
-  justify-content: space-evenly;
-} */
-
 .menubar ul li{
   display: inline-block;
   margin-right: 25px;
@@ -23,4 +16,20 @@ nav{
 }
 .logo img{
   height: 80px;
+}
+
+.card-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card-cover{
+  border: 1px solid #c0c0c094;
+  width: 350px;
+  min-height: 250px;
+  max-height: 350px;
+  padding: 20px;
+  margin: 15px;
 }
