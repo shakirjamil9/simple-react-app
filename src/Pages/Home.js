@@ -28,10 +28,15 @@ class Home extends React.Component {
 
     componentDidMount = async () => {
         const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
-        this.setState({
+        setTimeout(()=>this.setState({
             data: data,
             loading: false
-        })
+        }), 1500)
+       
+        // this.setState({
+        //     data: data,
+        //     loading: false
+        // })
     }
     render() {
         return (
