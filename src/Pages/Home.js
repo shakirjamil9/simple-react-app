@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MyCarousel from "../Components/MyCarousel"
 import axios from "axios";
 import img from "../download.png"
@@ -20,38 +20,58 @@ const CardComponent = (props) => {
         </Card>
     )
 }
-class Home extends React.Component {
-    state = {
-        data: [],
-        loading: true
-    }
+// class Home extends React.Component {
+//     state = {
+//         data: [],
+//         loading: true,
+//     }
 
-    componentDidMount = async () => {
-        const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
-        setTimeout(()=>this.setState({
-            data: data,
-            loading: false
-        }), 1500)
-       
-        // this.setState({
-        //     data: data,
-        //     loading: false
-        // })
-    }
-    render() {
-        return (
-            <React.Fragment>
-                <MyCarousel />
-                <div className="card-container">
-                    {
-                        this.state.loading ? <div class="loader">Loading...</div> : this.state.data.slice(0, 100).map((card, i) => {
-                            return <CardComponent cardData={card} index={i} />
-                        })
-                    }
-                </div>
-            </React.Fragment>
-        )
-    }
+//     componentDidMount = async () => {
+//         const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
+//         setTimeout(()=>this.setState({
+//             data: data,
+//             loading: false
+//         }), 2500)
+//     }
+//     render() {
+//         return (
+//             <React.Fragment>
+//                  <MyCarousel />
+//                 <div className="card-container">
+//                     {
+//                         this.state.loading ? <div class="loader">Loading...</div> : this.state.data.slice(0, 100).map((card, i) => {
+//                             return <CardComponent cardData={card} index={i} />
+//                         })
+//                     }
+//                 </div>
+//             </React.Fragment>
+//         )
+//     }
+// }
+
+const Home = () => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        const get_data = async () => {
+            const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
+            setData(data);
+            setIsLoading(false);
+        }
+        get_data()
+    })
+
+    return <>
+        <MyCarousel />
+        <div className="card-container">
+            {isLoading ? <div class="loader">Loading...</div>
+                : data.map((card, i) => {
+                    return <CardComponent cardData={card} index={i} />
+                })}
+        </div>
+    </>
+
 }
 
 export default Home
